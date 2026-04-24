@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+<<<<<<< Updated upstream:app/layout.tsx
+=======
+import { Toaster } from "sonner";
+import { ClerkProvider } from "@clerk/nextjs";
+>>>>>>> Stashed changes:src/app/layout.tsx
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +32,16 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+<<<<<<< Updated upstream:app/layout.tsx
       <body className="min-h-full flex flex-col">{children}</body>
+=======
+      <body>
+        <ClerkProvider>
+          {children}
+          <Toaster />
+        </ClerkProvider>
+      </body>
+>>>>>>> Stashed changes:src/app/layout.tsx
     </html>
   );
 }
