@@ -12,11 +12,16 @@ datasource db {
   provider = "postgresql"
 }
 
-<<<<<<< HEAD
-
-=======
-model User {
-  id   String @id @default(uuid())
-  name String 
+enum VoiceVariant {
+  SYSTEM
+  CUSTOM
 }
->>>>>>> 08a485ace8bc8e3c7a5405ece324d829356cacf1
+
+model Voice {
+  id           String       @id @default(cuid())
+  name         String
+  description  String?
+  variant      VoiceVariant
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}

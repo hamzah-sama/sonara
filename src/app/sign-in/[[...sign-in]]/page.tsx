@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { SignIn } from "@clerk/nextjs";
 
 export default function Page() {
@@ -15,10 +14,3 @@ export default function Page() {
     </div>
   );
 }
-=======
-import { SignIn } from '@clerk/nextjs'
-
-export default function Page() {
-  return <SignIn />
-}
->>>>>>> 08a485ace8bc8e3c7a5405ece324d829356cacf1

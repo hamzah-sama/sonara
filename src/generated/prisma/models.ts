@@ -8,4 +8,5 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Voice'
 export type * from './commonInputTypes'
