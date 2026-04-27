@@ -27,7 +27,7 @@ export const DashboardHeader = () => {
             <span className="hidden lg:block">Feedback</span>
           </Link>
         </Button>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" asChild>
           <Link
             href="mailto:V2M5M@example.com"
             className="flex items-center gap-2"

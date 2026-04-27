@@ -2,9 +2,9 @@
 
 import { useAppForm } from "@/hooks/use-app-form";
 import { TextInputPanel } from "@/modules/dashboard/components/text-input-panel";
-import { SettingPanel } from "../componets/setting-panel";
-import { ttsFormOptions } from "../componets/text-to-speech-form";
-import { VoicePreviewPlaceholder } from "../componets/voice-preview-placeholder";
+import { SettingPanel } from "../components/setting-panel";
+import { ttsFormOptions } from "../components/text-to-speech-form";
+import { VoicePreviewPlaceholder } from "../components/voice-preview-placeholder";
 
 export const TextToSpeechView = () => {
   const form = useAppForm({

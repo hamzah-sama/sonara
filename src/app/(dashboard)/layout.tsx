@@ -14,7 +14,6 @@ const Layout = async ({ children }: Props) => {
     <SidebarProvider
       defaultOpen={defaultOpen}
       className="h-svh"
-      key={Math.random()}
     >
       <DashboardSidebar />
       <SidebarInset className="min-h-0 min-w-0">

@@ -51,7 +51,7 @@ export const Section = ({ label, items, pathName }: Props) => {
         </SidebarGroupLabel>
       )}
       <SidebarGroupContent>
-        <SidebarMenuItem>
+        <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
@@ -80,7 +80,7 @@ export const Section = ({ label, items, pathName }: Props) => {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
-        </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
   );
