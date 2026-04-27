@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.8.0",
   "engineVersion": "3c6e192761c0362d496ed980de936e2f3cebcd3a",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum VoiceVariant {\n  SYSTEM\n  CUSTOM\n}\n\nmodel Voice {\n  id          String       @id @default(cuid())\n  name        String\n  description String?\n  variant     VoiceVariant\n  createdAt   DateTime     @default(now())\n  updatedAt   DateTime     @updatedAt\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -32,10 +32,10 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Voice\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"variant\",\"kind\":\"enum\",\"type\":\"VoiceVariant\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 config.parameterizationSchema = {
-  strings: JSON.parse("[]"),
-  graph: "AAAA"
+  strings: JSON.parse("[\"where\",\"Voice.findUnique\",\"Voice.findUniqueOrThrow\",\"orderBy\",\"cursor\",\"Voice.findFirst\",\"Voice.findFirstOrThrow\",\"Voice.findMany\",\"data\",\"Voice.createOne\",\"Voice.createMany\",\"Voice.createManyAndReturn\",\"Voice.updateOne\",\"Voice.updateMany\",\"Voice.updateManyAndReturn\",\"create\",\"update\",\"Voice.upsertOne\",\"Voice.deleteOne\",\"Voice.deleteMany\",\"having\",\"_count\",\"_min\",\"_max\",\"Voice.groupBy\",\"Voice.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"name\",\"description\",\"VoiceVariant\",\"variant\",\"createdAt\",\"updatedAt\",\"equals\",\"in\",\"notIn\",\"lt\",\"lte\",\"gt\",\"gte\",\"not\",\"contains\",\"startsWith\",\"endsWith\",\"set\"]"),
+  graph: "NQkQCRoAACkAMBsAAAQAEBwAACkAMB0BAAAAAR4BACoAIR8BACsAISEAACwhIiJAAC0AISNAAC0AIQEAAAABACABAAAAAQAgCRoAACkAMBsAAAQAEBwAACkAMB0BACoAIR4BACoAIR8BACsAISEAACwhIiJAAC0AISNAAC0AIQEfAAAuACADAAAABAAgAwAABQAwBAAAAQAgAwAAAAQAIAMAAAUAMAQAAAEAIAMAAAAEACADAAAFADAEAAABACAGHQEAAAABHgEAAAABHwEAAAABIQAAACECIkAAAAABI0AAAAABAQgAAAkAIAYdAQAAAAEeAQAAAAEfAQAAAAEhAAAAIQIiQAAAAAEjQAAAAAEBCAAACwAwAQgAAAsAMAYdAQAyACEeAQAyACEfAQAzACEhAAA0ISIiQAA1ACEjQAA1ACECAAAAAQAgCAAADgAgBh0BADIAIR4BADIAIR8BADMAISEAADQhIiJAADUAISNAADUAIQIAAAAEACAIAAAQACACAAAABAAgCAAAEAAgAwAAAAEAIA8AAAkAIBAAAA4AIAEAAAABACABAAAABAAgBBUAAC8AIBYAADEAIBcAADAAIB8AAC4AIAkaAAAaADAbAAAXABAcAAAaADAdAQAbACEeAQAbACEfAQAcACEhAAAdISIiQAAeACEjQAAeACEDAAAABAAgAwAAFgAwFAAAFwAgAwAAAAQAIAMAAAUAMAQAAAEAIAkaAAAaADAbAAAXABAcAAAaADAdAQAbACEeAQAbACEfAQAcACEhAAAdISIiQAAeACEjQAAeACEOFQAAIAAgFgAAKAAgFwAAKAAgJAEAAAABJQEAAAAEJgEAAAAEJwEAAAABKAEAAAABKQEAAAABKgEAAAABKwEAJwAhLAEAAAABLQEAAAABLgEAAAABDhUAACUAIBYAACYAIBcAACYAICQBAAAAASUBAAAABSYBAAAABScBAAAAASgBAAAAASkBAAAAASoBAAAAASsBACQAISwBAAAAAS0BAAAAAS4BAAAAAQcVAAAgACAWAAAjACAXAAAjACAkAAAAIQIlAAAAIQgmAAAAIQgrAAAiISILFQAAIAAgFgAAIQAgFwAAIQAgJEAAAAABJUAAAAAEJkAAAAAEJ0AAAAABKEAAAAABKUAAAAABKkAAAAABK0AAHwAhCxUAACAAIBYAACEAIBcAACEAICRAAAAAASVAAAAABCZAAAAABCdAAAAAAShAAAAAASlAAAAAASpAAAAAAStAAB8AIQgkAgAAAAElAgAAAAQmAgAAAAQnAgAAAAEoAgAAAAEpAgAAAAEqAgAAAAErAgAgACEIJEAAAAABJUAAAAAEJkAAAAAEJ0AAAAABKEAAAAABKUAAAAABKkAAAAABK0AAIQAhBxUAACAAIBYAACMAIBcAACMAICQAAAAhAiUAAAAhCCYAAAAhCCsAACIhIgQkAAAAIQIlAAAAIQgmAAAAIQgrAAAjISIOFQAAJQAgFgAAJgAgFwAAJgAgJAEAAAABJQEAAAAFJgEAAAAFJwEAAAABKAEAAAABKQEAAAABKgEAAAABKwEAJAAhLAEAAAABLQEAAAABLgEAAAABCCQCAAAAASUCAAAABSYCAAAABScCAAAAASgCAAAAASkCAAAAASoCAAAAASsCACUAIQskAQAAAAElAQAAAAUmAQAAAAUnAQAAAAEoAQAAAAEpAQAAAAEqAQAAAAErAQAmACEsAQAAAAEtAQAAAAEuAQAAAAEOFQAAIAAgFgAAKAAgFwAAKAAgJAEAAAABJQEAAAAEJgEAAAAEJwEAAAABKAEAAAABKQEAAAABKgEAAAABKwEAJwAhLAEAAAABLQEAAAABLgEAAAABCyQBAAAAASUBAAAABCYBAAAABCcBAAAAASgBAAAAASkBAAAAASoBAAAAASsBACgAISwBAAAAAS0BAAAAAS4BAAAAAQkaAAApADAbAAAEABAcAAApADAdAQAqACEeAQAqACEfAQArACEhAAAsISIiQAAtACEjQAAtACELJAEAAAABJQEAAAAEJgEAAAAEJwEAAAABKAEAAAABKQEAAAABKgEAAAABKwEAKAAhLAEAAAABLQEAAAABLgEAAAABCyQBAAAAASUBAAAABSYBAAAABScBAAAAASgBAAAAASkBAAAAASoBAAAAASsBACYAISwBAAAAAS0BAAAAAS4BAAAAAQQkAAAAIQIlAAAAIQgmAAAAIQgrAAAjISIIJEAAAAABJUAAAAAEJkAAAAAEJ0AAAAABKEAAAAABKUAAAAABKkAAAAABK0AAIQAhAAAAAAEvAQAAAAEBLwEAAAABAS8AAAAhAgEvQAAAAAEAAAAAAxUABhYABxcACAAAAAMVAAYWAAcXAAgBAgECAwEFBgEGBwEHCAEJCgEKDAILDQMMDwENEQIOEgQREwESFAETFQIYGAUZGQk"
 }
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
@@ -70,8 +70,8 @@ export interface PrismaClientConstructor {
    * const prisma = new PrismaClient({
    *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Voices
+   * const voices = await prisma.voice.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -94,8 +94,8 @@ export interface PrismaClientConstructor {
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Voices
+ * const voices = await prisma.voice.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -188,7 +188,15 @@ export interface PrismaClient<
     extArgs: ExtArgs
   }>>
 
-    
+      /**
+   * `prisma.voice`: Exposes CRUD operations for the **Voice** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Voices
+    * const voices = await prisma.voice.findMany()
+    * ```
+    */
+  get voice(): Prisma.VoiceDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {
