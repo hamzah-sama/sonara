@@ -4,7 +4,7 @@ import { SettingPanelSetting } from "./setting-panel-setting";
 import { SettingPanelHistory } from "./setting-panel-history";
 
 const tabsTriggerClassname =
-  "flex-1 h-full gap-2 bg-transparent rounded-none border-x-0 border-t-0 border-b-px border-b-transparent shadow-none data-[state=active]:border-b-foreground group-data-[variant=default]/tabs-list:data-[state=active]:shadow-none";
+  "flex-1 h-full gap-2 bg-transparent rounded-none border-x-0 border-t-0 border-b border-b-transparent shadow-none data-[state=active]:border-b-foreground group-data-[variant=default]/tabs-list:data-[state=active]:shadow-none";
 
 export const SettingPanel = () => {
   return (

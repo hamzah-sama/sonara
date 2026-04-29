@@ -60,7 +60,8 @@ export const Section = ({ label, items, pathName }: Props) => {
                   item.url
                     ? item.url === "/"
                       ? pathName === "/"
-                      : pathName.startsWith(item.url)
+                      : pathName === item.url ||
+                        pathName.startsWith(item.url + "/")
                     : false
                 }
                 onClick={item.onClick}

@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Voice: 'Voice'
+  Voice: 'Voice',
+  Generation: 'Generation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "voice"
+    modelProps: "voice" | "generation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Generation: {
+      payload: Prisma.$GenerationPayload<ExtArgs>
+      fields: Prisma.GenerationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GenerationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GenerationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>
+        }
+        findFirst: {
+          args: Prisma.GenerationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GenerationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>
+        }
+        findMany: {
+          args: Prisma.GenerationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>[]
+        }
+        create: {
+          args: Prisma.GenerationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>
+        }
+        createMany: {
+          args: Prisma.GenerationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GenerationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>[]
+        }
+        delete: {
+          args: Prisma.GenerationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>
+        }
+        update: {
+          args: Prisma.GenerationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>
+        }
+        deleteMany: {
+          args: Prisma.GenerationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GenerationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GenerationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>[]
+        }
+        upsert: {
+          args: Prisma.GenerationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GenerationPayload>
+        }
+        aggregate: {
+          args: Prisma.GenerationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGeneration>
+        }
+        groupBy: {
+          args: Prisma.GenerationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GenerationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GenerationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GenerationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -519,14 +594,36 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const VoiceScalarFieldEnum = {
   id: 'id',
+  orgId: 'orgId',
   name: 'name',
   description: 'description',
   variant: 'variant',
+  category: 'category',
+  language: 'language',
+  r2ObjectKey: 'r2ObjectKey',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type VoiceScalarFieldEnum = (typeof VoiceScalarFieldEnum)[keyof typeof VoiceScalarFieldEnum]
+
+
+export const GenerationScalarFieldEnum = {
+  id: 'id',
+  orgId: 'orgId',
+  voiceId: 'voiceId',
+  voiceName: 'voiceName',
+  text: 'text',
+  topP: 'topP',
+  topK: 'topK',
+  temperature: 'temperature',
+  repetitionPenalty: 'repetitionPenalty',
+  r2ObjectKey: 'r2ObjectKey',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -588,6 +685,20 @@ export type ListEnumVoiceVariantFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'VoiceCategory'
+ */
+export type EnumVoiceCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoiceCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'VoiceCategory[]'
+ */
+export type ListEnumVoiceCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoiceCategory[]'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -598,6 +709,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -725,6 +850,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   voice?: Prisma.VoiceOmit
+  generation?: Prisma.GenerationOmit
 }
 
 /* Types for Logging */

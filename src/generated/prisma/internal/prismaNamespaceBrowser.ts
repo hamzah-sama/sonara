@@ -51,7 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Voice: 'Voice'
+  Voice: 'Voice',
+  Generation: 'Generation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,14 +73,36 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const VoiceScalarFieldEnum = {
   id: 'id',
+  orgId: 'orgId',
   name: 'name',
   description: 'description',
   variant: 'variant',
+  category: 'category',
+  language: 'language',
+  r2ObjectKey: 'r2ObjectKey',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type VoiceScalarFieldEnum = (typeof VoiceScalarFieldEnum)[keyof typeof VoiceScalarFieldEnum]
+
+
+export const GenerationScalarFieldEnum = {
+  id: 'id',
+  orgId: 'orgId',
+  voiceId: 'voiceId',
+  voiceName: 'voiceName',
+  text: 'text',
+  topP: 'topP',
+  topK: 'topK',
+  temperature: 'temperature',
+  repetitionPenalty: 'repetitionPenalty',
+  r2ObjectKey: 'r2ObjectKey',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
 
 
 export const SortOrder = {
