@@ -8,7 +8,11 @@ export const env = createEnv({
     R2_ACCESS_KEY_ID: z.string().min(1, "R2_ACCESS_KEY_ID is required"),
     R2_SECRET_ACCESS_KEY: z.string().min(1, "R2_SECRET_ACCESS_KEY is required"),
     R2_BUCKET_NAME: z.string().min(1, "R2_BUCKET_NAME is required"),
+    CHATTER_BOX_API_URL: z.url(),
+    CHATTER_BOX_API_KEY: z.string().min(1, "CHATTER_BOX_API_KEY is required"),
   },
   experimental__runtimeEnv: {},
-  skipValidation: process.env.SKIP_VALIDATION === 'true' || process.env.SKIP_VALIDATION === '1',
+  skipValidation:
+    process.env.SKIP_VALIDATION === "true" ||
+    process.env.SKIP_VALIDATION === "1",
 });
