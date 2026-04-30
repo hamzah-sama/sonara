@@ -3,7 +3,7 @@ import { createTRPCRouter, orgProcedure } from "../init";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/generated/prisma/client";
 import { TRPCError } from "@trpc/server";
-import { deleteAudio } from "@/lib/r2";
+import { deleteAudio, r2 } from "@/lib/r2";
 
 const voiceSelect = {
   id: true,
@@ -58,26 +58,44 @@ export const voicesRouter = createTRPCRouter({
   delete: orgProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      const { orgId } = ctx;
       const voice = await prisma.voice.findUnique({
         where: {
           id: input.id,
           variant: "CUSTOM",
           orgId: ctx.orgId,
         },
+        select: {
+          id: true,
+          r2ObjectKey: true,
+        },
       });
 
       if (!voice) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Voice not found" });
       }
+      const { id, r2ObjectKey } = voice;
 
-      await prisma.voice.delete({
+      const { count } = await prisma.voice.deleteMany({
         where: {
-          id: voice.id,
+          id,
+          orgId,
+          variant: "CUSTOM",
         },
       });
 
-      if (voice.r2ObjectKey) {
-        await deleteAudio(voice.r2ObjectKey).catch(() => {});
+      if (count === 0) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Voice not found" });
+      }
+
+      if (r2ObjectKey) {
+        await deleteAudio(r2ObjectKey).catch((error) => {
+          console.error("R2 deleted failed", {
+            id,
+            r2ObjectKey,
+            error,
+          });
+        });
       }
 
       return { success: true };

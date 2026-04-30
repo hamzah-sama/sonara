@@ -41,6 +41,12 @@ export const TextInputPanel = () => {
           <VoiceSelectorButton />
         </SettingDrawer>
         <DrawerHistory />
+        <GenerateButton
+          size="sm"
+          disabled={isSubmitting}
+          onClick={form.handleSubmit}
+          isSubmitting={isSubmitting}
+        />
       </div>
 
       {/* Desktop view */}

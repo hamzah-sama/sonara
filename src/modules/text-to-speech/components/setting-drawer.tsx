@@ -17,13 +17,13 @@ interface Props {
 export const SettingDrawer = ({ children }: Props) => {
   return (
     <Drawer>
-      {children ?? (
-        <DrawerTrigger asChild>
+      <DrawerTrigger asChild>
+        {children ?? (
           <Button variant="outline" size="sm">
             <Settings className="size-4" />
           </Button>
-        </DrawerTrigger>
-      )}
+        )}
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Settings</DrawerTitle>

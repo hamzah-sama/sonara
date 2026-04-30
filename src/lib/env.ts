@@ -10,5 +10,5 @@ export const env = createEnv({
     R2_BUCKET_NAME: z.string().min(1, "R2_BUCKET_NAME is required"),
   },
   experimental__runtimeEnv: {},
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+  skipValidation: process.env.SKIP_VALIDATION === 'true' || process.env.SKIP_VALIDATION === '1',
 });

@@ -6,7 +6,7 @@ export const createTRPCContext = cache(async () => {
   /**
    * @see: https://trpc.io/docs/server/context
    */
-  return { userId: "user_123" };
+  return {  };
 });
 // Avoid exporting the entire t-object
 // since it's not very descriptive.
@@ -38,7 +38,7 @@ export const authProcedure = baseProcedure.use(async ({ next }) => {
 export const orgProcedure = baseProcedure.use(async ({ next }) => {
   const { userId, orgId } = await auth();
 
-  if (!orgId) {
+  if (!userId) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
