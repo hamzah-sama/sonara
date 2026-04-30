@@ -39,15 +39,7 @@ export const TextToSpeechForm = ({ defaultValues, children }: Props) => {
     validators: {
       onSubmit: ttsFormSchema,
     },
-    onSubmit: async ({ value }) => {
-      try {
-        toast.success("Generating audio...");
-      } catch (error) {
-        const message =
-          error instanceof Error ? error.message : "Failed to  generate audio";
-        toast.error(message);
-      }
-    },
+    onSubmit: async ({ value }) => {},
   });
   return <form.AppForm>{children}</form.AppForm>;
 };

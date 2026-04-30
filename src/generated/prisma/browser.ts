@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type Voice = Prisma.VoiceModel
+/**
+ * Model Generation
+ * 
+ */
+export type Generation = Prisma.GenerationModel

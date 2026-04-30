@@ -15,3 +15,21 @@ export const VoiceVariant = {
 } as const
 
 export type VoiceVariant = (typeof VoiceVariant)[keyof typeof VoiceVariant]
+
+
+export const VoiceCategory = {
+  AUDIOBOOK: 'AUDIOBOOK',
+  CONVERSATIONAL: 'CONVERSATIONAL',
+  CUSTOMER_SERVICE: 'CUSTOMER_SERVICE',
+  GENERAL: 'GENERAL',
+  NARRATIVE: 'NARRATIVE',
+  CHARACTERS: 'CHARACTERS',
+  MEDITATION: 'MEDITATION',
+  MOTIVATIONAL: 'MOTIVATIONAL',
+  PODCAST: 'PODCAST',
+  ADVERTISING: 'ADVERTISING',
+  VOICEOVER: 'VOICEOVER',
+  CORPORATE: 'CORPORATE'
+} as const
+
+export type VoiceCategory = (typeof VoiceCategory)[keyof typeof VoiceCategory]
