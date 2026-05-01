@@ -83,7 +83,7 @@ export const AudioPlayer = ({ id, name, text, audioUrl }: Props) => {
           />
 
           <div className="flex justify-end">
-            <DownloadButton audioUrl={audioUrl} text={text} />
+            <DownloadButton audioUrl={audioUrl} text={text} label="Download" />
           </div>
         </div>
       </div>

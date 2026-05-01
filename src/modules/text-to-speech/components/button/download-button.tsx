@@ -8,6 +8,7 @@ interface Props {
   audioUrl: string;
   variant?: "ghost" | "outline";
   size?: "icon" | "sm";
+  label?: string;
 }
 
 export const DownloadButton = ({
@@ -15,6 +16,7 @@ export const DownloadButton = ({
   audioUrl,
   size = "sm",
   variant = "outline",
+  label,
 }: Props) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const handleDownload = () => {
@@ -54,6 +56,7 @@ export const DownloadButton = ({
       disabled={isDownloading}
     >
       <Download className="size-4" />
+      {label && <span>{label}</span>}
     </Button>
   );
 };

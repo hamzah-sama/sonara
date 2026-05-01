@@ -13,6 +13,7 @@ const Page = async ({ searchParams }: Props) => {
   const { text, voiceId } = await searchParams;
 
   await prefetch(trpc.voices.getAll.queryOptions());
+  await prefetch(trpc.generations.getAll.queryOptions());
   return (
     <HydrateClient>
       <TextToSpeechView initialValues={{ text, voiceId }} />
