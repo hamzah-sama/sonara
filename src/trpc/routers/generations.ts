@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
 import { MAX_TEXT_INPUT_LENGTH } from "@/constants";
 import { chatterBox } from "@/lib/chatterbox-client";
-import { uploadAudio } from "@/lib/r2";
+import { deleteAudio, uploadAudio } from "@/lib/r2";
 
 export const generationRouter = createTRPCRouter({
   getById: orgProcedure
@@ -159,6 +159,9 @@ export const generationRouter = createTRPCRouter({
           },
         });
       } catch (error) {
+        if (r2ObjectKey) {
+          await deleteAudio(r2ObjectKey).catch(() => {});
+        }
         if (generationId) {
           await prisma.generation
             .delete({
