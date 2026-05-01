@@ -1,8 +1,10 @@
 import { VoiceAvatar } from "@/components/avatar/voice-avatar";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Download, Pause, Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { DownloadButton } from "./button/download-button";
+import { PlayButtonMobile } from "./button/play-button-mobile";
 
 interface Props {
   id?: string;
@@ -43,32 +45,6 @@ export const AudioPlayerMobile = ({ id, name, text, audioUrl }: Props) => {
     }
   }, [isMobile]);
 
-  const togglePlayPause = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-  };
-
-  const handleDownload = () => {
-    const safeName =
-      text
-        .slice(0, 50)
-        .trim()
-        .replace(/[^a-zA-Z0-9]+/g, "-")
-        .replace(/^-|-$/g, "")
-        .toLowerCase() || "speech";
-    const link = document.createElement("a");
-    link.href = audioUrl;
-    link.download = `${safeName}.wav`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   if (!audioUrl) return null;
 
   return (
@@ -84,26 +60,13 @@ export const AudioPlayerMobile = ({ id, name, text, audioUrl }: Props) => {
         </div>
         <div className="flex items-center justify-center">
           <div className="flex items-center gap-2">
-            <Button
-              onClick={handleDownload}
-              type="button"
+            <DownloadButton
+              audioUrl={audioUrl}
+              text={text}
+              size="icon"
               variant="ghost"
-              size="icon"
-            >
-              <Download className="size-4" />
-            </Button>
-            <Button
-              onClick={togglePlayPause}
-              size="icon"
-              className="rounded-full"
-              type="button"
-            >
-              {isPlaying ? (
-                <Pause className="fill-background" />
-              ) : (
-                <Play className="fill-background" />
-              )}
-            </Button>
+            />
+            <PlayButtonMobile audioRef={audioRef} isPlaying={isPlaying} />
           </div>
         </div>
       </div>

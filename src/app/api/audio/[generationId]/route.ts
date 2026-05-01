@@ -29,10 +29,19 @@ export async function GET(
   }
 
   const signedUrl = await getAudio(generation.r2ObjectKey);
-  const audioResponse = await fetch(signedUrl);
+
+  let audioResponse: Response;
+
+  try {
+    audioResponse = await fetch(signedUrl, {
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (error) {
+    return new Response("provider timeout", { status: 504 });
+  }
 
   if (!audioResponse.ok) {
-    return new Response("Failed to fetch audio", { status: 404 });
+    return new Response("failed to fetch", { status: 402 });
   }
 
   return new Response(audioResponse.body, {
