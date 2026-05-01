@@ -1,6 +1,7 @@
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCallback, useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { set } from "zod";
 
 export const useWaveSurfer = (audioUrl: string) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -13,6 +14,10 @@ export const useWaveSurfer = (audioUrl: string) => {
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
+    setIsReady(false);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
     if (!containerRef.current || !audioUrl) return;
 
     if (waveSurferRef.current) {
@@ -69,19 +74,21 @@ export const useWaveSurfer = (audioUrl: string) => {
     waveSurferRef.current?.playPause();
   }, []);
 
-  const seekForward = useCallback((seconds : number) => {
+  const seekForward = useCallback((seconds: number) => {
     const ws = waveSurferRef.current;
     if (!ws) return;
-
-    const newTime = Math.min(ws.getDuration(), ws.getCurrentTime() + seconds);
-    ws.seekTo(newTime / ws.getDuration());
+    const duration = ws.getDuration();
+    const newTime = Math.min(duration, ws.getCurrentTime() + seconds);
+    ws.seekTo(newTime / duration);
   }, []);
 
-  const seekBackward = useCallback((seconds : number) => {
+  const seekBackward = useCallback((seconds: number) => {
     const ws = waveSurferRef.current;
     if (!ws) return;
-    const newTime = Math.max(0, ws.getCurrentTime() - seconds);
-    ws.seekTo(newTime / ws.getDuration());
+    const duration = ws.getDuration();
+    if(duration === 0) return;
+    const newTime = Math.max(0, duration - seconds);
+    ws.seekTo(newTime / duration);
   }, []);
 
   return {

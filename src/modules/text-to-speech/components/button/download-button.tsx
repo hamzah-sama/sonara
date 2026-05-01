@@ -26,14 +26,23 @@ export const DownloadButton = ({
         .replace(/[^a-zA-Z0-9]+/g, "-")
         .replace(/^-|-$/g, "")
         .toLowerCase() || "speech";
-    const link = document.createElement("a");
-    link.href = audioUrl;
-    link.download = `${safeName}.wav`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setTimeout(() => setIsDownloading(false), 1000);
-    toast.success("Audio downloaded successfully");
+    try {
+      const parsedUrl = new URL(audioUrl, window.location.origin);
+      if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+        throw new Error("Invalid URL protocol");
+      }
+      const link = document.createElement("a");
+      link.href = parsedUrl.toString();
+      link.download = `${safeName}.wav`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("Audio downloaded successfully");
+    } catch {
+      toast.error("unable to download audio");
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
