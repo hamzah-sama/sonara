@@ -113,7 +113,7 @@ export const generationRouter = createTRPCRouter({
       if (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to generating audio",
+          message: "Failed to generate audio",
         });
       }
 
@@ -169,17 +169,16 @@ export const generationRouter = createTRPCRouter({
             .catch(() => {});
         }
 
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "failed to store generate audio",
-        });
-
         if (!generationId || !r2ObjectKey) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: "failed to store generate audio",
           });
         }
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong, failed to store generate audio",
+        });
       }
 
       return { id: generationId };
