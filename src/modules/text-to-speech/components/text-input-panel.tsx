@@ -5,11 +5,11 @@ import { COST_PER_CHAR, MAX_TEXT_INPUT_LENGTH } from "@/constants";
 import { useStore } from "@tanstack/react-form";
 import { Badge } from "@/components/ui/badge";
 import { Coins } from "lucide-react";
-import { GenerateButton } from "./generate-button";
 import { PromptSuggestion } from "./prompt-suggestion";
 import { SettingDrawer } from "./setting-drawer";
 import { VoiceSelectorButton } from "./voice-selector-button";
 import { DrawerHistory } from "./drawer-history";
+import { GenerateButton } from "./button/generate-button";
 
 export const TextInputPanel = () => {
   const form = useTypedAppFormContext(ttsFormOptions);
