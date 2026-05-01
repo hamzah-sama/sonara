@@ -1,9 +1,11 @@
 import {
   DeleteObjectCommand,
+  GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
 import { env } from "./env";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export const r2 = new S3Client({
   region: "auto",
@@ -45,4 +47,10 @@ export const deleteAudio = async (key: string): Promise<void> => {
   );
 };
 
-
+export const getAudio = async (key: string): Promise<string> => {
+  const command = new GetObjectCommand({
+    Bucket: env.R2_BUCKET_NAME,
+    Key: key,
+  });
+  return getSignedUrl(r2, command, { expiresIn: 60 });
+};
