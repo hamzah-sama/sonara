@@ -1,5 +1,8 @@
 import { useAppForm } from "@/hooks/use-app-form";
+import { useTRPC } from "@/trpc/client";
 import { formOptions } from "@tanstack/react-form";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -33,13 +36,35 @@ interface Props {
 }
 
 export const TextToSpeechForm = ({ defaultValues, children }: Props) => {
+  const router = useRouter();
+  const trpc = useTRPC();
+  const createMutation = useMutation(
+    trpc.generations.create.mutationOptions({}),
+  );
   const form = useAppForm({
     ...ttsFormOptions,
     defaultValues: defaultValues ?? defaultTTSValues,
     validators: {
       onSubmit: ttsFormSchema,
     },
-    onSubmit: async ({ value }) => {},
+    onSubmit: async ({ value }) => {
+      try {
+        const data = await createMutation.mutateAsync({
+          text: value.text.trim(),
+          voiceId: value.voiceId,
+          temperature: value.temperature,
+          topP: value.topP,
+          topK: value.topK,
+          repetitionPenalty: value.repetitionPenalty,
+        });
+        toast.success("Audio generated successfully");
+        router.push(`/text-to-speech/${data.id}`);
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Something went wrong";
+        toast.error(message);
+      }
+    },
   });
   return <form.AppForm>{children}</form.AppForm>;
 };
