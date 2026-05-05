@@ -116,6 +116,20 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+/*
+ * cmdk measures inner list height into --cmdk-list-height; without using it on height,
+ * the list grows with every row and max-height/scroll never behave as documented.
+ * https://github.com/pacocoursey/cmdk#list-cmdk-list
+ */
+[data-slot="command-list"] {
+    height: var(--cmdk-list-height, auto);
+    max-height: min(18rem, calc(100dvh - 4rem));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;

@@ -62,7 +62,8 @@ export const TextToSpeechViewDetail = ({ generationId }: Props) => {
               />
             ) : (
               <AudioPlayer
-                id={data.voiceId ?? undefined}
+                id={data.id}
+                voiceId={data.voiceId ?? undefined}
                 name={data.voiceName}
                 text={data.text}
                 audioUrl={data.audioUrl}
