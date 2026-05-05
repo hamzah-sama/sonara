@@ -83,7 +83,7 @@ export const UploadCard = ({ file, onFileChange, isInvalid }: Props) => {
           Upload your audio file here
         </p>
         <p className="text-xs text-muted-foreground">
-          Support your audio format, max size 200MB
+          Support your audio format, max size 20MB
         </p>
       </div>
 

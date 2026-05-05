@@ -79,11 +79,17 @@ export const VoiceCreateForm = ({
       });
 
       if (!response.ok) {
-        const body = await response.json();
-        throw new Error(body.error ?? "Failed to create voice");
+        const raw = await response.text();
+        let message = "failed to created voice";
+        if (raw) {
+          try {
+            message = JSON.parse(raw).error ?? raw;
+          } catch (error) {
+            message = raw;
+          }
+        }
+        throw new Error(message);
       }
-
-      return response.json();
     },
   });
 
@@ -108,13 +114,13 @@ export const VoiceCreateForm = ({
           category: value.category,
         });
 
-        toast.success("voices created succesfully");
+        toast.success("voice created succesfully");
         queryClient.invalidateQueries(trpc.voices.getAll.queryOptions());
         onFormClose();
         form.reset();
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "Failed to created voice";
+          error instanceof Error ? error.message : "Failed to create voice";
         if (onError) {
           onError(message);
         }

@@ -209,7 +209,15 @@ export const generationRouter = createTRPCRouter({
         });
       }
       const { id, r2ObjectKey } = generation;
-      await prisma.generation.delete({ where: { id } });
+      const { count } = await prisma.generation.deleteMany({
+        where: { id, orgId: ctx.orgId },
+      });
+      if (count === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Voice-generation not found",
+        });
+      }
 
       if (r2ObjectKey) {
         await deleteAudio(r2ObjectKey).catch((error) => {
