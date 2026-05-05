@@ -1,16 +1,12 @@
 "use client";
 
-import { AppRouter } from "@/trpc/routers/_app";
-import { inferRouterOutputs } from "@trpc/server";
+import { VoiceType } from "@/types/voice-type";
 import { createContext, useContext } from "react";
 
-type TTSVoicesItem =
-  inferRouterOutputs<AppRouter>["voices"]["getAll"]["customVoices"][number];
-
 interface TTSVoiceContextValue {
-  customVoices: TTSVoicesItem[];
-  systemVoices: TTSVoicesItem[];
-  allVoices: TTSVoicesItem[];
+  customVoices: VoiceType[];
+  systemVoices: VoiceType[];
+  allVoices: VoiceType[];
 }
 
 export const TTSVoiceContext = createContext<TTSVoiceContextValue | null>(null);

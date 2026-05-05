@@ -6,15 +6,24 @@ import { format } from "date-fns";
 import { VoiceAvatar } from "@/components/avatar/voice-avatar";
 import { DownloadButton } from "./button/download-button";
 import { ControlButton } from "./button/control-button";
+import { TrashIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { DeleteDialog } from "@/components/delete-dialog";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  id?: string;
+  id: string;
   name: string;
   text: string;
   audioUrl: string;
+  voiceId?: string;
 }
 
-export const AudioPlayer = ({ id, name, text, audioUrl }: Props) => {
+export const AudioPlayer = ({ id, name, text, audioUrl, voiceId }: Props) => {
   const {
     containerRef,
     isReady,
@@ -26,13 +35,40 @@ export const AudioPlayer = ({ id, name, text, audioUrl }: Props) => {
     seekBackward,
   } = useWaveSurfer(audioUrl);
 
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const formatTime = (seconds: number): string => {
     return format(new Date(seconds * 1000), "mm:ss");
   };
+  const router = useRouter();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const deleteGeneration = useMutation(
+    trpc.generations.delete.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: trpc.generations.getAll.queryKey(),
+        });
+        setShowDeleteDialog(false);
+        toast.success("Voice generation deleted successfully");
+        router.push("/text-to-speech");
+      },
+      onError: (error) => {
+        toast.error(error.message ?? "Failed to deleted voice generation");
+      },
+    }),
+  );
   return (
     <div className="hidden lg:flex flex-col gap-8 h-full flex-1 border-t">
-      <div className="p-6 pb-0">
+      <div className="p-6 pb-0 flex justify-between items-center">
         <h3 className="font-semibold text-foreground">Voice preview</h3>
+        <Button
+          variant="destructive"
+          size="icon-sm"
+          type="button"
+          onClick={() => setShowDeleteDialog(true)}
+        >
+          <TrashIcon className="size-4" />
+        </Button>
       </div>
 
       <div className="relative flex items-center justify-center">
@@ -70,7 +106,7 @@ export const AudioPlayer = ({ id, name, text, audioUrl }: Props) => {
               {text}
             </p>
             <div className="flex items-center gap-1 text-muted-foreground">
-              <VoiceAvatar seed={id ?? name} name={name} />
+              <VoiceAvatar seed={voiceId ?? name} name={name} />
               <span className="truncate">{name}</span>
             </div>
           </div>
@@ -87,6 +123,15 @@ export const AudioPlayer = ({ id, name, text, audioUrl }: Props) => {
           </div>
         </div>
       </div>
+      <DeleteDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        onClick={(e) => {
+          e.preventDefault();
+          deleteGeneration.mutate({ id });
+        }}
+        isPending={deleteGeneration.isPending}
+      />
     </div>
   );
 };

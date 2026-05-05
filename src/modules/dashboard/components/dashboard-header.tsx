@@ -20,7 +20,7 @@ export const DashboardHeader = () => {
       <div className="lg:flex items-center gap-3 hidden">
         <Button variant="outline" size="sm">
           <Link
-            href="mailto:V2M5M@example.com"
+            href="mailto:hamzah.sama@gmail.com"
             className="flex items-center gap-2"
           >
             <ThumbsUp />
@@ -29,7 +29,7 @@ export const DashboardHeader = () => {
         </Button>
         <Button variant="outline" size="sm" asChild>
           <Link
-            href="mailto:V2M5M@example.com"
+            href="mailto:hamzah.sama@gmail.com"
             className="flex items-center gap-2"
           >
             <Headphones />

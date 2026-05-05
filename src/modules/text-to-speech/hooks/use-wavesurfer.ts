@@ -87,7 +87,7 @@ export const useWaveSurfer = (audioUrl: string) => {
     if (!ws) return;
     const duration = ws.getDuration();
     if(duration === 0) return;
-    const newTime = Math.max(0, duration - seconds);
+    const newTime = Math.max(0, ws.getCurrentTime() - seconds);
     ws.seekTo(newTime / duration);
   }, []);
 
