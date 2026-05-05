@@ -43,6 +43,17 @@ export async function POST(req: Request) {
 
   const { name, category, language, description } = validateData.data;
 
+  const contentLengthHeader = req.headers.get("content-length");
+  const contentLength = contentLengthHeader ? Number(contentLengthHeader) : NaN;
+  if(Number.isFinite(contentLength) && contentLength > MAX_UPLOAD_SIZE) {
+    return Response.json(
+      {
+        error: "audio file exceeds maximum size of 20MB",
+      },
+      { status: 413 },
+    );
+  }
+
   const fileBuffer = await req.arrayBuffer();
 
   if (!fileBuffer.byteLength) {
@@ -59,7 +70,7 @@ export async function POST(req: Request) {
       {
         error: "audio file exceeds maximum size of 20MB",
       },
-      { status: 400 },
+      { status: 413 },
     );
   }
 

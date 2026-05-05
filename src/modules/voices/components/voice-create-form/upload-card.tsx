@@ -67,7 +67,7 @@ export const UploadCard = ({ file, onFileChange, isInvalid }: Props) => {
       {...getRootProps()}
       className={cn(
         "flex flex-col cursor-pointer gap-4 items-center justify-center rounded-2xl border px-6 py-10 overflow-hidden transition-colors",
-        isDragActive || isInvalid
+        isDragReject || isInvalid
           ? "border-destructive"
           : isDragActive
             ? "border-primary"

@@ -122,7 +122,7 @@ export const VoiceCard = ({ voice }: Props) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40" align="end">
             <DropdownMenuItem asChild>
-              <Link href={`/text-to-speech?voiceId=${voice.id}}`}>
+              <Link href={`/text-to-speech?voiceId=${voice.id}`}>
                 <Mic className="size-4 text-foreground" />
                 <span className="text-muted-foreground">Use this voice</span>
               </Link>

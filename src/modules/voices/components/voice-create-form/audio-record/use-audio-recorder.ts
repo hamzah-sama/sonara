@@ -105,7 +105,7 @@ export const useAudioRecorder = () => {
 
       timerRef.current = setInterval(() => {
         setElapsedTime((Date.now() - startTime) / 1000);
-      });
+      }, 1000);
     } catch (error) {
       cleanUp();
       if (error instanceof DOMException && error.name === "NotAllowedError") {

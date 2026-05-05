@@ -106,6 +106,15 @@ export const useAudioPlayback = (src: string | File | null) => {
         .then(() => {
           setIsPlaying(true);
         })
+        .catch((error) => {
+          if (error?.name !== "AbortError") {
+            console.error("Audio playback failed, :", error);
+          }
+          setIsPlaying(false);
+          if (activeAudio === audioRef.current) {
+            activeAudio = null;
+          }
+        })
         .finally(() => {
           setIsloading(false);
         });

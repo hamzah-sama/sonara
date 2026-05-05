@@ -209,6 +209,7 @@ export const generationRouter = createTRPCRouter({
         });
       }
       const { id, r2ObjectKey } = generation;
+      await prisma.generation.delete({ where: { id } });
 
       if (r2ObjectKey) {
         await deleteAudio(r2ObjectKey).catch((error) => {

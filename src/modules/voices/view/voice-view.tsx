@@ -6,6 +6,8 @@ import { useQueryState } from "nuqs";
 import { voiceSearchParams } from "../lib/params";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { VoiceToolbar } from "../components/voice-toolbar";
+import { Suspense } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 const VoiceContent = () => {
   const trpc = useTRPC();
@@ -27,7 +29,9 @@ export const VoiceView = () => {
   return (
     <div className="flex-1 space-y-10 overflow-y-auto p-3 lg:p-6">
       <VoiceToolbar />
-      <VoiceContent />;
+      <Suspense fallback={<Spinner className="size-4"/>}>
+        <VoiceContent />;
+      </Suspense>
     </div>
   );
 };

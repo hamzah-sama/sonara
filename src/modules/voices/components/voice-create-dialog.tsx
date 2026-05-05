@@ -23,13 +23,14 @@ import { useState } from "react";
 import { VoiceCreateForm } from "./voice-create-form";
 
 export const VoiceCreateDialog = () => {
+  const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
   const [popoverPortalHost, setPopoverPortalHost] =
     useState<HTMLDivElement | null>(null);
 
   if (isMobile)
     return (
-      <Drawer>
+      <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
           <Button size="sm">
             <Sparkles className="size-4" />
@@ -55,12 +56,13 @@ export const VoiceCreateDialog = () => {
                 </DrawerClose>
               </DrawerFooter>
             )}
+            onFormClose={() => setOpen(false)}
           />
         </DrawerContent>
       </Drawer>
     );
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm">
           <Sparkles className="size-4" />
@@ -77,7 +79,10 @@ export const VoiceCreateDialog = () => {
             Upload or record an audio sample to add a new voice to your library.
           </DialogDescription>
         </DialogHeader>
-        <VoiceCreateForm popoverPortalHost={popoverPortalHost} />
+        <VoiceCreateForm
+          popoverPortalHost={popoverPortalHost}
+          onFormClose={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

@@ -34,6 +34,7 @@ interface Props {
   /** Port popovers here so nested menus scroll inside modal drawers/dialogs (scroll-lock). */
   popoverPortalHost?: HTMLElement | null;
   onError?: (message: string) => void;
+  onFormClose: () => void;
 }
 
 interface VoiceMutation {
@@ -49,6 +50,7 @@ export const VoiceCreateForm = ({
   footer,
   popoverPortalHost,
   onError,
+  onFormClose,
 }: Props) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
@@ -101,14 +103,14 @@ export const VoiceCreateForm = ({
         await createMutation.mutateAsync({
           name: value.name,
           description: value.description,
-          language: value.description,
+          language: value.language,
           file: value.file!,
           category: value.category,
         });
 
         toast.success("voices created succesfully");
         queryClient.invalidateQueries(trpc.voices.getAll.queryOptions());
-
+        onFormClose();
         form.reset();
       } catch (error) {
         const message =
