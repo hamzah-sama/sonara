@@ -186,4 +186,49 @@ export const generationRouter = createTRPCRouter({
 
       return { id: generationId };
     }),
+
+  delete: orgProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { orgId } = ctx;
+      const generation = await prisma.generation.findUnique({
+        where: {
+          id: input.id,
+          orgId: ctx.orgId,
+        },
+        select: {
+          id: true,
+          r2ObjectKey: true,
+        },
+      });
+
+      if (!generation) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Voice-generation not found",
+        });
+      }
+      const { id, r2ObjectKey } = generation;
+      const { count } = await prisma.generation.deleteMany({
+        where: { id, orgId: ctx.orgId },
+      });
+      if (count === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Voice-generation not found",
+        });
+      }
+
+      if (r2ObjectKey) {
+        await deleteAudio(r2ObjectKey).catch((error) => {
+          console.error("voice-generation deleted failed", {
+            id,
+            r2ObjectKey,
+            error,
+          });
+        });
+      }
+
+      return { success: true };
+    }),
 });

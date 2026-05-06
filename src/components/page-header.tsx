@@ -25,7 +25,7 @@ export const PageHeader = ({ className, title, triggerClass }: Props) => {
       <div className="flex items-center gap-3">
         <Button variant="outline" size="sm">
           <Link
-            href="mailto:V2M5M@example.com"
+            href="mailto:hamzah.sama@gmail.com"
             className="flex items-center gap-2"
           >
             <ThumbsUp />
@@ -34,7 +34,7 @@ export const PageHeader = ({ className, title, triggerClass }: Props) => {
         </Button>
         <Button variant="outline" size="sm" asChild>
           <Link
-            href="mailto:V2M5M@example.com"
+            href="mailto:hamzah.sama@gmail.com"
             className="flex items-center gap-2"
           >
             <Headphones />

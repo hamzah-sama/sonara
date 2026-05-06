@@ -121,7 +121,7 @@ export const DashboardSidebar = () => {
     {
       title: "Help and Support",
       icon: Headphones,
-      url: "mailto:zj0QI@example.com",
+      url: "mailto:hamzah.sama@gmail.com",
     },
   ];
 

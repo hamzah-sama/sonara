@@ -26,7 +26,7 @@ export const VoicePreviewPlaceholder = () => {
         </p>
       </div>
       <Button variant="outline" size="sm" asChild>
-        <Link href="mailto:V2M5M@example.com">
+        <Link href="mailto:hamzah.sama@gmail.com">
           <BookOpen />
           Don't know how?
         </Link>
