@@ -1,7 +1,5 @@
 import { VoiceAvatar } from "@/components/avatar/voice-avatar";
-import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { DownloadButton } from "./button/download-button";
 import { PlayButtonMobile } from "./button/play-button-mobile";

@@ -93,7 +93,7 @@ export const Section = ({ label, items, pathName }: Props) => {
 export const DashboardSidebar = () => {
   const pathName = usePathname();
   const clerk = useClerk();
-  const { setOpen, open } = useShowCreateVoiceForm();
+  const { setOpen } = useShowCreateVoiceForm();
 
   const mainMenuItems: MenuItem[] = [
     {

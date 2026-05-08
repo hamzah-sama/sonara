@@ -7,7 +7,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Settings } from "lucide-react";
-import { SettingPanel } from "./setting-panel";
 import { SettingPanelSetting } from "./setting-panel-setting";
 
 interface Props {

@@ -5,7 +5,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -84,7 +83,7 @@ export const VoiceCreateForm = ({
         if (raw) {
           try {
             message = JSON.parse(raw).error ?? raw;
-          } catch (error) {
+          } catch {
             message = raw;
           }
         }

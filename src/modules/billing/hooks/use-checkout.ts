@@ -16,6 +16,5 @@ export const useCheckout = () => {
   return {
     checkout,
     isPending: mutation.isPending,
-    url: mutation.data?.checkoutUrl,
   };
 };

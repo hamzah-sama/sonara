@@ -3,7 +3,7 @@ import { useCheckout } from "../hooks/use-checkout";
 import { Spinner } from "@/components/ui/spinner";
 
 export const UpgradeCard = () => {
-  const { checkout, isPending, url } = useCheckout();
+  const { checkout, isPending } = useCheckout();
 
   return (
     <div className="flex flex-col gap-3">

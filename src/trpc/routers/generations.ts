@@ -181,7 +181,7 @@ export const generationRouter = createTRPCRouter({
             r2ObjectKey,
           },
         });
-      } catch (error) {
+      } catch {
         if (r2ObjectKey) {
           await deleteAudio(r2ObjectKey).catch(() => {});
         }
@@ -224,7 +224,6 @@ export const generationRouter = createTRPCRouter({
   delete: orgProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const { orgId } = ctx;
       const generation = await prisma.generation.findUnique({
         where: {
           id: input.id,

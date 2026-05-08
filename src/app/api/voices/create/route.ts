@@ -128,7 +128,7 @@ export async function POST(req: Request) {
     );
 
     duration = metaData.format.duration || 0;
-  } catch (error) {
+  } catch {
     return Response.json(
       {
         error: "file is not a valid audio file",
@@ -181,7 +181,7 @@ export async function POST(req: Request) {
         r2ObjectKey,
       },
     });
-  } catch (error) {
+  } catch {
     if (createdVoiceId) {
       await prisma.voice
         .delete({

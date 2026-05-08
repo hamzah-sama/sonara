@@ -72,7 +72,7 @@ export const billingRouter = createTRPCRouter({
         customerId: customerState.id,
         estimatedCost,
       };
-    } catch (error) {
+    } catch {
       return {
         hasActiveSubscription: false,
         estimatedCost: 0,

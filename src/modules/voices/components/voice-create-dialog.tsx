@@ -18,7 +18,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Sparkles } from "lucide-react";
 import { useCallback, useState } from "react";
 import { VoiceCreateForm } from "./voice-create-form";
 import { useCheckout } from "@/modules/billing/hooks/use-checkout";

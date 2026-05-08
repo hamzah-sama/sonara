@@ -36,7 +36,7 @@ export async function GET(
     audioResponse = await fetch(signedUrl, {
       signal: AbortSignal.timeout(10_000),
     });
-  } catch (error) {
+  } catch {
     return new Response("provider timeout", { status: 504 });
   }
 

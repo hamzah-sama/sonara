@@ -3,7 +3,7 @@ import { createTRPCRouter, orgProcedure } from "../init";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/generated/prisma/client";
 import { TRPCError } from "@trpc/server";
-import { deleteAudio, r2 } from "@/lib/r2";
+import { deleteAudio } from "@/lib/r2";
 
 const voiceSelect = {
   id: true,
