@@ -40,7 +40,12 @@ export const VoiceCreateDialog = ({ children }: Props) => {
 
   const handleError = useCallback(
     (message: string) => {
-      if (message === "SUBSCRIPTION_REQUIRED") {
+      if (
+        [
+          "SUBSCRIPTION_REQUIRED",
+          "subscription check unavailable, please try again",
+        ].includes(message)
+      ) {
         toast.error("Subscription required", {
           action: {
             label: "subscribe",

@@ -65,7 +65,12 @@ export const TextToSpeechForm = ({ defaultValues, children }: Props) => {
       } catch (error) {
         const message =
           error instanceof Error ? error.message : "Something went wrong";
-        if (message === "SUBSCRIPTION_REQUIRED") {
+        if (
+          [
+            "SUBSCRIPTION_REQUIRED",
+            "subscription check unavailable, please try again",
+          ].includes(message)
+        ) {
           toast.error("Subscription required", {
             action: {
               label: "subscribe",
