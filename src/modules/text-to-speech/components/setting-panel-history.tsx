@@ -1,4 +1,5 @@
 import { VoiceAvatar } from "@/components/avatar/voice-avatar";
+import { Generation } from "@/generated/prisma/client";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
@@ -7,9 +8,9 @@ import Link from "next/link";
 
 export const SettingPanelHistory = () => {
   const trpc = useTRPC();
-  const { data: generations } = useSuspenseQuery(
-    trpc.generations.getAll.queryOptions(),
-  );
+  const { data } = useSuspenseQuery(trpc.generations.getAll.queryOptions());
+
+  const generations = data as Generation[];
 
   if (!generations.length)
     return (
