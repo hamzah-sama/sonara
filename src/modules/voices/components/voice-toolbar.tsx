@@ -3,12 +3,13 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Search } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { VoiceCreateDialog } from "./voice-create-dialog";
 import { useQueryState } from "nuqs";
 import { voiceSearchParams } from "../lib/params";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { Button } from "@/components/ui/button";
 
 export const VoiceToolbar = () => {
   const [query, setQuery] = useQueryState("query", voiceSearchParams.query);
@@ -44,7 +45,12 @@ export const VoiceToolbar = () => {
               }}
             />
           </InputGroup>
-          <VoiceCreateDialog />
+          <VoiceCreateDialog>
+            <Button size="sm">
+              <Sparkles className="size-4" />
+              Custom voice
+            </Button>
+          </VoiceCreateDialog>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { useAppForm } from "@/hooks/use-app-form";
+import { useCheckout } from "@/modules/billing/hooks/use-checkout";
 import { useTRPC } from "@/trpc/client";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
@@ -41,6 +42,8 @@ export const TextToSpeechForm = ({ defaultValues, children }: Props) => {
   const createMutation = useMutation(
     trpc.generations.create.mutationOptions({}),
   );
+
+  const { checkout } = useCheckout();
   const form = useAppForm({
     ...ttsFormOptions,
     defaultValues: defaultValues ?? defaultTTSValues,
@@ -62,7 +65,16 @@ export const TextToSpeechForm = ({ defaultValues, children }: Props) => {
       } catch (error) {
         const message =
           error instanceof Error ? error.message : "Something went wrong";
-        toast.error(message);
+        if (message === "SUBSCRIPTION_REQUIRED") {
+          toast.error("Subscription required", {
+            action: {
+              label: "subscribe",
+              onClick: () => checkout(),
+            },
+          });
+        } else {
+          toast.error(message);
+        }
       }
     },
   });

@@ -5,6 +5,7 @@ import { TRPCError } from "@trpc/server";
 import { MAX_TEXT_INPUT_LENGTH } from "@/constants";
 import { chatterBox } from "@/lib/chatterbox-client";
 import { deleteAudio, uploadAudio } from "@/lib/r2";
+import { polar } from "@/lib/polar";
 
 export const generationRouter = createTRPCRouter({
   getById: orgProcedure
@@ -60,6 +61,29 @@ export const generationRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      try {
+        const customerState = await polar.customers.getStateExternal({
+          externalId: ctx.orgId,
+        });
+
+        const hasActiveSubscription =
+          (customerState?.activeSubscriptions ?? []).length > 0;
+
+        if (!hasActiveSubscription) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message:
+              "You need to have an active subscription to use this feature",
+          });
+        }
+      } catch (error) {
+        if (error instanceof TRPCError) throw error;
+
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "SUBSCRIPTION_REQUIRED",
+        });
+      }
       const { voiceId, text, topK, topP, temperature, repetitionPenalty } =
         input;
 
@@ -184,6 +208,15 @@ export const generationRouter = createTRPCRouter({
         });
       }
 
+      polar.events.ingest({
+        events: [
+          {
+            name: "tts-generation",
+            externalCustomerId: ctx.orgId,
+            metadata: { characters: input.text.length },
+          },
+        ],
+      }).catch(()=>{})
       return { id: generationId };
     }),
 

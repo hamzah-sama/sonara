@@ -21,3 +21,10 @@ export const formatTime = (seconds: number) => {
     .toString()
     .padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
 };
+
+export const formatCurrency = (cents: number): string => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(cents / 100);
+};

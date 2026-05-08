@@ -33,7 +33,7 @@ interface Props {
   footer?: (submit: ReactNode) => React.ReactNode;
   /** Port popovers here so nested menus scroll inside modal drawers/dialogs (scroll-lock). */
   popoverPortalHost?: HTMLElement | null;
-  onError?: (message: string) => void;
+  onError: (message: string) => void;
   onFormClose: () => void;
 }
 

@@ -5,6 +5,7 @@ import z from "zod";
 import { parseBuffer } from "music-metadata";
 import { prisma } from "@/lib/db";
 import { uploadAudio } from "@/lib/r2";
+import { polar } from "@/lib/polar";
 
 const createVoiceSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -20,6 +21,31 @@ export async function POST(req: Request) {
   const { userId, orgId } = await auth();
   if (!userId || !orgId) {
     return new Response("Unauthorized", { status: 401 });
+  }
+  try {
+    const customerState = await polar.customers.getStateExternal({
+      externalId: orgId,
+    });
+
+    const hasActiveSubscription =
+      (customerState.activeSubscriptions ?? []).length > 0;
+    if (!hasActiveSubscription) {
+      return Response.json(
+        {
+          error: "You need to have an active subscription to use this feature",
+        },
+        { status: 403 },
+      );
+    }
+  } catch (error) {
+    return Response.json(
+      {
+        error: "SUBSCRIPTION_REQUIRED",
+      },
+      {
+        status: 403,
+      },
+    );
   }
 
   const url = new URL(req.url);
@@ -45,7 +71,7 @@ export async function POST(req: Request) {
 
   const contentLengthHeader = req.headers.get("content-length");
   const contentLength = contentLengthHeader ? Number(contentLengthHeader) : NaN;
-  if(Number.isFinite(contentLength) && contentLength > MAX_UPLOAD_SIZE) {
+  if (Number.isFinite(contentLength) && contentLength > MAX_UPLOAD_SIZE) {
     return Response.json(
       {
         error: "audio file exceeds maximum size of 20MB",
@@ -173,6 +199,17 @@ export async function POST(req: Request) {
       },
     );
   }
+
+  polar.events.ingest({
+    events: [
+      {
+        name: "voice_creation",
+        externalCustomerId: orgId,
+        metadata: {},
+        timestamp: new Date(),
+      },
+    ],
+  }).catch(()=>{})
 
   return Response.json(
     {

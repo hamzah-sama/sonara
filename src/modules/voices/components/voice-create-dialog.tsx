@@ -19,24 +19,45 @@ import {
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { VoiceCreateForm } from "./voice-create-form";
+import { useCheckout } from "@/modules/billing/hooks/use-checkout";
+import { toast } from "sonner";
+import { useShowCreateVoiceForm } from "@/modules/text-to-speech/contexts/show-create-voice-context";
 
-export const VoiceCreateDialog = () => {
-  const [open, setOpen] = useState(false);
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const VoiceCreateDialog = ({ children }: Props) => {
+  const { setOpen, open } = useShowCreateVoiceForm();
+
   const isMobile = useIsMobile();
   const [popoverPortalHost, setPopoverPortalHost] =
     useState<HTMLDivElement | null>(null);
 
+  const { checkout } = useCheckout();
+
+  const handleError = useCallback(
+    (message: string) => {
+      if (message === "SUBSCRIPTION_REQUIRED") {
+        toast.error("Subscription required", {
+          action: {
+            label: "subscribe",
+            onClick: () => checkout(),
+          },
+        });
+      } else {
+        toast.error(message);
+      }
+    },
+    [checkout],
+  );
+
   if (isMobile)
     return (
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger asChild>
-          <Button size="sm">
-            <Sparkles className="size-4" />
-            Custom voice
-          </Button>
-        </DrawerTrigger>
+        <DrawerTrigger asChild>{children}</DrawerTrigger>
         <DrawerContent ref={setPopoverPortalHost}>
           <DrawerHeader>
             <DrawerTitle>Create custom voice</DrawerTitle>
@@ -57,18 +78,14 @@ export const VoiceCreateDialog = () => {
               </DrawerFooter>
             )}
             onFormClose={() => setOpen(false)}
+            onError={handleError}
           />
         </DrawerContent>
       </Drawer>
     );
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button size="sm">
-          <Sparkles className="size-4" />
-          Custom voice
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         ref={setPopoverPortalHost}
         style={{ width: "40rem", maxWidth: "calc(100% - 2rem)" }}
@@ -82,6 +99,7 @@ export const VoiceCreateDialog = () => {
         <VoiceCreateForm
           popoverPortalHost={popoverPortalHost}
           onFormClose={() => setOpen(false)}
+          onError={handleError}
         />
       </DialogContent>
     </Dialog>
