@@ -72,8 +72,7 @@ export const generationRouter = createTRPCRouter({
         if (!hasActiveSubscription) {
           throw new TRPCError({
             code: "FORBIDDEN",
-            message:
-              "You need to have an active subscription to use this feature",
+            message: "SUBSCRIPTION_REQUIRED",
           });
         }
       } catch (error) {
@@ -81,7 +80,7 @@ export const generationRouter = createTRPCRouter({
 
         throw new TRPCError({
           code: "FORBIDDEN",
-          message: "SUBSCRIPTION_REQUIRED",
+          message: "subscription check unavailable, please try again",
         });
       }
       const { voiceId, text, topK, topP, temperature, repetitionPenalty } =
@@ -208,15 +207,17 @@ export const generationRouter = createTRPCRouter({
         });
       }
 
-      polar.events.ingest({
-        events: [
-          {
-            name: "tts-generation",
-            externalCustomerId: ctx.orgId,
-            metadata: { characters: input.text.length },
-          },
-        ],
-      }).catch(()=>{})
+      polar.events
+        .ingest({
+          events: [
+            {
+              name: "tts-generation",
+              externalCustomerId: ctx.orgId,
+              metadata: { characters: input.text.length },
+            },
+          ],
+        })
+        .catch(() => {});
       return { id: generationId };
     }),
 

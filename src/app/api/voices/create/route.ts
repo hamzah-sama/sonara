@@ -32,18 +32,19 @@ export async function POST(req: Request) {
     if (!hasActiveSubscription) {
       return Response.json(
         {
-          error: "You need to have an active subscription to use this feature",
+          error: "SUBSCRIPTION_REQUIRED",
         },
         { status: 403 },
       );
     }
   } catch (error) {
+    console.error("Polar subscription check failed:", error);
     return Response.json(
       {
-        error: "SUBSCRIPTION_REQUIRED",
+        error: "subsctiption check unavailable, please try again",
       },
       {
-        status: 403,
+        status: 503,
       },
     );
   }
@@ -200,16 +201,18 @@ export async function POST(req: Request) {
     );
   }
 
-  polar.events.ingest({
-    events: [
-      {
-        name: "voice_creation",
-        externalCustomerId: orgId,
-        metadata: {},
-        timestamp: new Date(),
-      },
-    ],
-  }).catch(()=>{})
+  polar.events
+    .ingest({
+      events: [
+        {
+          name: "voice_creation",
+          externalCustomerId: orgId,
+          metadata: {},
+          timestamp: new Date(),
+        },
+      ],
+    })
+    .catch(() => {});
 
   return Response.json(
     {

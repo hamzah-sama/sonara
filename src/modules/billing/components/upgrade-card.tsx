@@ -13,7 +13,6 @@ export const UpgradeCard = () => {
       <p className="text-xm text-muted-foreground mt-1">
         Generate speech starting at $0.30 per 1,000 characters
       </p>
-      <p className="">url: {url}</p>
       <Button
         className="w-full text-xs"
         onClick={checkout}

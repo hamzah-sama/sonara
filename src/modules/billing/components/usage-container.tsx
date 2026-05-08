@@ -7,10 +7,10 @@ import { UpgradeCard } from "./upgrade-card";
 
 export const UsageContainer = () => {
   const trpc = useTRPC();
-  const { data } = useQuery(trpc.billing.getStatus.queryOptions());
+  const { data, isLoading } = useQuery(trpc.billing.getStatus.queryOptions());
   return (
     <div className="bg-background border border-border p-3 group-data-[collapsible=icon]:hidden rounded-lg">
-      {data?.hasActiveSubscription ? (
+      {isLoading ? null : data?.hasActiveSubscription ? (
         <UsageCard estimatedCost={data.estimatedCost} />
       ) : (
         <UpgradeCard />

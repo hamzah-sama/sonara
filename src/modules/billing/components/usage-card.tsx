@@ -18,7 +18,7 @@ export const UsageCard = ({ estimatedCost }: Props) => {
   const openPortal = useCallback(() => {
     portalMutation.mutate(undefined, {
       onSuccess: (data) => {
-        window.open(data.portalUrl, "_blank");
+        window.open(data.portalUrl, "_blank", 'noopener,noreferrer');
       },
     });
   }, [portalMutation]);

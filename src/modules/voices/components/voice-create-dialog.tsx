@@ -57,7 +57,7 @@ export const VoiceCreateDialog = ({ children }: Props) => {
   if (isMobile)
     return (
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger asChild>{children}</DrawerTrigger>
+        {children && <DrawerTrigger asChild>{children}</DrawerTrigger>}
         <DrawerContent ref={setPopoverPortalHost}>
           <DrawerHeader>
             <DrawerTitle>Create custom voice</DrawerTitle>
@@ -85,7 +85,7 @@ export const VoiceCreateDialog = ({ children }: Props) => {
     );
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      {children && <DialogTrigger asChild>{children}</DialogTrigger>}
       <DialogContent
         ref={setPopoverPortalHost}
         style={{ width: "40rem", maxWidth: "calc(100% - 2rem)" }}

@@ -2,9 +2,8 @@ import { polar } from "@/lib/polar";
 import { createTRPCRouter, orgProcedure } from "../init";
 import { env } from "@/lib/env";
 import { TRPCError } from "@trpc/server";
-import { c } from "openapi-typescript";
 
-export const biilingRouter = createTRPCRouter({
+export const billingRouter = createTRPCRouter({
   createCheckout: orgProcedure.mutation(async ({ ctx }) => {
     try {
       const result = await polar.checkouts.create({
@@ -27,20 +26,29 @@ export const biilingRouter = createTRPCRouter({
   }),
 
   createPortalSession: orgProcedure.mutation(async ({ ctx }) => {
-    const result = await polar.customerSessions.create({
-      externalCustomerId: ctx.orgId,
-    });
+    try {
+      const result = await polar.customerSessions.create({
+        externalCustomerId: ctx.orgId,
+      });
 
-    if (!result.customerPortalUrl) {
+      if (!result.customerPortalUrl) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "failed to create portal session",
+        });
+      }
+
+      return {
+        portalUrl: result.customerPortalUrl,
+      };
+    } catch (error) {
+      if (error instanceof TRPCError) throw error;
+      console.error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: "failed to create portal session",
+        message: "Failed to created portal session",
       });
     }
-
-    return {
-      portalUrl: result.customerPortalUrl,
-    };
   }),
 
   getStatus: orgProcedure.query(async ({ ctx }) => {
