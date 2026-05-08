@@ -10,6 +10,10 @@ export const env = createEnv({
     R2_BUCKET_NAME: z.string().min(1, "R2_BUCKET_NAME is required"),
     CHATTER_BOX_API_URL: z.url(),
     CHATTER_BOX_API_KEY: z.string().min(1, "CHATTER_BOX_API_KEY is required"),
+    POLAR_ACCESS_TOKEN: z.string().min(1, "POLAR_ACCESS_TOKEN is required"),
+    POLAR_SERVER: z.enum(["sandbox", "production"]).default("sandbox"),
+    POLAR_PRODUCT_ID: z.string().min(1, "POLAR_PRODUCT_ID is required"),
+    APP_URL: z.url(),
   },
   experimental__runtimeEnv: {},
   skipValidation:

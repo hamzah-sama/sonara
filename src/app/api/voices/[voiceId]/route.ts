@@ -3,7 +3,7 @@ import { getAudio } from "@/lib/r2";
 import { auth } from "@clerk/nextjs/server";
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ voiceId: string }> },
 ) {
   const { userId, orgId } = await auth();

@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { TRPCReactProvider } from "@/trpc/client";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { ShowCreateVoiceContextProvider } from "@/modules/text-to-speech/contexts/show-create-voice-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,7 +38,9 @@ export default function RootLayout({
           className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
         >
           <body>
-            <NuqsAdapter>{children}</NuqsAdapter>
+            <ShowCreateVoiceContextProvider>
+              <NuqsAdapter>{children}</NuqsAdapter>
+            </ShowCreateVoiceContextProvider>
             <Toaster />
           </body>
         </html>
