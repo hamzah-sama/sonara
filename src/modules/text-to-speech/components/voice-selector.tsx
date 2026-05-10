@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { VoiceAvatar } from "@/components/avatar/voice-avatar";
 import { VOICE_CATEGORY_LABELS } from "@/modules/voices/data/voice-categories";
+import { VoiceCategory } from "@/generated/prisma/enums";
 
 export const VoiceSelector = () => {
   const { customVoices, systemVoices, allVoices: voices } = useVoiceContext();
@@ -41,7 +42,7 @@ export const VoiceSelector = () => {
                 <span className="truncate text-sm font-medium tracking-tight">
                   {currentVoice.name}
                   {currentVoice.category &&
-                    ` - ${VOICE_CATEGORY_LABELS[currentVoice.category]}`}
+                    ` - ${VOICE_CATEGORY_LABELS[currentVoice.category as VoiceCategory]}`}
                 </span>
               </>
             )}
