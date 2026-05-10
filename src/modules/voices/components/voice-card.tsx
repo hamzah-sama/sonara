@@ -69,7 +69,7 @@ export const VoiceCard = ({ voice }: Props) => {
           {voice.name}
           <span className="bg-muted-foreground/50 size-1 rounded-full shrink-0" />
           <div className="text-[#327c88]">
-            {VOICE_CATEGORY_LABELS[voice.category] as VoiceCategory}
+            {VOICE_CATEGORY_LABELS[voice.category as VoiceCategory]}
           </div>
         </div>
         <p className="line-clamp-1 text-xs text-muted-foreground">
