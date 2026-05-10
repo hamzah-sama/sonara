@@ -21,6 +21,7 @@ import { useTRPC } from "@/trpc/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { DeleteDialog } from "@/components/delete-dialog";
+import { VoiceCategory } from "@/generated/prisma/enums";
 
 interface Props {
   voice: VoiceType;
@@ -68,7 +69,7 @@ export const VoiceCard = ({ voice }: Props) => {
           {voice.name}
           <span className="bg-muted-foreground/50 size-1 rounded-full shrink-0" />
           <div className="text-[#327c88]">
-            {VOICE_CATEGORY_LABELS[voice.category]}
+            {VOICE_CATEGORY_LABELS[voice.category] as VoiceCategory}
           </div>
         </div>
         <p className="line-clamp-1 text-xs text-muted-foreground">
