@@ -12,7 +12,7 @@ const voiceSelect = {
   category: true,
   language: true,
   variant: true,
-} satisfies Prisma.VoiceSelect;
+};
 
 export const voicesRouter = createTRPCRouter({
   getAll: orgProcedure
