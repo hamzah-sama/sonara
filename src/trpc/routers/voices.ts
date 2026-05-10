@@ -18,14 +18,14 @@ export const voicesRouter = createTRPCRouter({
   getAll: orgProcedure
     .input(z.object({ query: z.string().trim().optional() }).optional())
     .query(async ({ ctx, input }) => {
-      const searchFilter: Prisma.VoiceWhereInput = input?.query
+      const searchFilter = input?.query
         ? {
             OR: [
-              { name: { contains: input.query, mode: "insensitive" } },
+              { name: { contains: input.query, mode: "insensitive" as const } },
               {
                 description: {
                   contains: input.query,
-                  mode: "insensitive",
+                  mode: "insensitive" as const,
                 },
               },
             ],
