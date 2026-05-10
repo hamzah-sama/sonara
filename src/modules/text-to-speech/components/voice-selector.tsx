@@ -58,7 +58,7 @@ export const VoiceSelector = () => {
                     <SelectItem key={voice.id} value={voice.id}>
                       <VoiceAvatar seed={voice.id} name={voice.name} />
                       <span className="truncate text-sm font-medium tracking-tight">
-                        {voice.name} - {VOICE_CATEGORY_LABELS[voice.category]}
+                        {voice.name} - {VOICE_CATEGORY_LABELS[voice.category as VoiceCategory]}
                       </span>
                     </SelectItem>
                   );
@@ -79,7 +79,7 @@ export const VoiceSelector = () => {
                     <SelectItem key={voice.id} value={voice.id}>
                       <VoiceAvatar seed={voice.id} name={voice.name} />
                       <span className="truncate text-sm font-medium tracking-tight">
-                        {voice.name} - {VOICE_CATEGORY_LABELS[voice.category]}
+                        {voice.name} - {VOICE_CATEGORY_LABELS[voice.category as VoiceCategory]}
                       </span>
                     </SelectItem>
                   );
