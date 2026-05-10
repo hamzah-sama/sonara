@@ -22,12 +22,7 @@ export const VoiceSelector = () => {
   const voiceId = useStore(form.store, (state) => state.values.voiceId);
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
   const selectedVoice = voices.find((voice) => voice.id === voiceId);
-  const hasMissingSelectedVoices = Boolean(voiceId) && !selectedVoice;
-  const currentVoice = selectedVoice
-    ? selectedVoice
-    : hasMissingSelectedVoices
-      ? { id: voiceId, name: "unavailable voice", category: null as null }
-      : voices[0];
+  const currentVoice = selectedVoice ? selectedVoice : voices[0];
   return (
     <Field>
       <FieldLabel>Voice Style</FieldLabel>
@@ -38,7 +33,7 @@ export const VoiceSelector = () => {
         }}
         disabled={isSubmitting}
       >
-        <SelectTrigger className="w-full h-auto px4 py-2 rounde-lg bg-white gap-1">
+        <SelectTrigger className="w-full h-auto px4 py-2 rounded-lg bg-white gap-1">
           <SelectValue>
             {currentVoice && (
               <>
@@ -53,28 +48,6 @@ export const VoiceSelector = () => {
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          {hasMissingSelectedVoices && currentVoice && (
-            <>
-              <SelectGroup>
-                <SelectLabel>Selected voice</SelectLabel>
-                <SelectItem value={currentVoice.id}>
-                  <VoiceAvatar
-                    seed={currentVoice.id}
-                    name={currentVoice.name}
-                  />
-                  <span className="truncate text-sm font-medium tracking-tight">
-                    {currentVoice.name}
-                    {currentVoice.category &&
-                      ` - ${VOICE_CATEGORY_LABELS[currentVoice.category]}`}
-                  </span>
-                </SelectItem>
-              </SelectGroup>
-              {(customVoices.length > 0 || systemVoices.length > 0) && (
-                <SelectSeparator />
-              )}
-            </>
-          )}
-
           {customVoices.length > 0 && (
             <>
               <SelectGroup>

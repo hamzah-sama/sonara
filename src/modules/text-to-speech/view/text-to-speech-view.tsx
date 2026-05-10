@@ -11,6 +11,7 @@ import { VoicePreviewPlaceholder } from "../components/voice-preview-placeholder
 import { VoiceContextProvider } from "../contexts/voice-contexts";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Voice } from "@/generated/prisma/client";
 
 interface Props {
   initialValues?: Partial<TTSFormValues>;
@@ -18,7 +19,12 @@ interface Props {
 
 export const TextToSpeechView = ({ initialValues }: Props) => {
   const trpc = useTRPC();
-  const { data: voices } = useSuspenseQuery(trpc.voices.getAll.queryOptions());
+  const { data } = useSuspenseQuery(trpc.voices.getAll.queryOptions());
+
+  const voices = data as Voice & {
+    customVoices: Voice[];
+    systemVoices: Voice[];
+  };
 
   const { customVoices, systemVoices } = voices;
   const allVoices = [...customVoices, ...systemVoices];
