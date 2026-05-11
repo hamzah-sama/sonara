@@ -6,23 +6,29 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { History } from "lucide-react";
-import { SettingPanelHistory } from "./setting-panel-history";
+import { Settings } from "lucide-react";
+import { SettingPanel } from "./setting-panel";
 
-export const DrawerHistory = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const Drawersetting = ({ children }: Props) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" size="sm">
-          <History className="size-4" />
-        </Button>
+        {children ?? (
+          <Button variant="outline" size="sm">
+            <Settings className="size-4" />
+          </Button>
+        )}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>History</DrawerTitle>
+          <DrawerTitle>Settings</DrawerTitle>
         </DrawerHeader>
         <div className="overflow-y-auto">
-          <SettingPanelHistory />
+          <SettingPanel />
         </div>
       </DrawerContent>
     </Drawer>

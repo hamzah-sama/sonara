@@ -1,7 +1,6 @@
 "use client";
 
-import { TextInputPanel } from "@/modules/text-to-speech/components/text-input-panel";
-import { SettingPanel } from "../components/setting-panel";
+import { TextToSpeechPanel } from "../components/text-to-speech-panel";
 import {
   defaultTTSValues,
   TextToSpeechForm,
@@ -12,6 +11,7 @@ import { VoiceContextProvider } from "../contexts/voice-contexts";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Voice } from "@/generated/prisma/client";
+import { TextInputPanel } from "../components/text-input-panel";
 
 interface Props {
   initialValues?: Partial<TTSFormValues>;
@@ -50,7 +50,7 @@ export const TextToSpeechView = ({ initialValues }: Props) => {
             <TextInputPanel />
             <VoicePreviewPlaceholder />
           </div>
-          <SettingPanel />
+          <TextToSpeechPanel />
         </form>
       </TextToSpeechForm>
     </VoiceContextProvider>

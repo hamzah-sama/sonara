@@ -1,5 +1,5 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { DashboardSidebar } from "@/modules/dashboard/components/dashboard-sidebar";
+import { DashboardSidebar } from "@/modules/dashboard/components/sidebar";
 import { cookies } from "next/headers";
 
 interface Props {

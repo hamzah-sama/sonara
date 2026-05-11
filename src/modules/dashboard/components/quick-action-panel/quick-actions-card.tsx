@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { QuickAction } from "@/constants";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { TryButton } from "./try-button";
 
 type Props = QuickAction;
 
@@ -33,13 +31,7 @@ export const QuickActionsCard = ({
             {description}
           </p>
         </div>
-
-        <Button variant="outline" asChild className="w-fit" size="xs">
-          <Link href={href}>
-            <ArrowRight className="size-3" />
-            Try it out
-          </Link>
-        </Button>
+        <TryButton href={href} />
       </div>
     </div>
   );
