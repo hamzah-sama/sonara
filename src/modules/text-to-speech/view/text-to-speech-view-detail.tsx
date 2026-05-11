@@ -11,7 +11,7 @@ import { useSuspenseQueries } from "@tanstack/react-query";
 import { AudioPlayerMobile } from "../components/audio-player-mobile";
 import { AudioPlayer } from "../components/audio-player";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { SettingPanel } from "../components/text-to-speech-panel/setting-panel";
+import { TextToSpeechPanel } from "../components/text-to-speech-panel";
 
 interface Props {
   generationId: string;
@@ -70,7 +70,7 @@ export const TextToSpeechViewDetail = ({ generationId }: Props) => {
               />
             )}
           </div>
-          <SettingPanel />
+          <TextToSpeechPanel />
         </form>
       </TextToSpeechForm>
     </VoiceContextProvider>
