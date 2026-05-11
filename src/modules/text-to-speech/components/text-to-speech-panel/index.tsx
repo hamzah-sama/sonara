@@ -1,12 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { History, Settings } from "lucide-react";
-import { SettingPanelSetting } from "./setting-panel-setting";
-import { SettingPanelHistory } from "./setting-panel-history";
+import { SettingPanel } from "./setting-panel";
+import { HistoryPanel } from "./history-panel";
 
 const tabsTriggerClassname =
   "flex-1 h-full gap-2 bg-transparent rounded-none border-x-0 border-t-0 border-b border-b-transparent shadow-none data-[state=active]:border-b-foreground group-data-[variant=default]/tabs-list:data-[state=active]:shadow-none";
 
-export const SettingPanel = () => {
+export const TextToSpeechPanel = () => {
   return (
     <div className="w-105 hidden lg:flex min-h-0 border-l flex-col">
       <Tabs
@@ -27,13 +27,13 @@ export const SettingPanel = () => {
           value="settings"
           className="flex flex-col min-h-0 flex-1 overflow-y-auto"
         >
-          <SettingPanelSetting />
+          <SettingPanel />
         </TabsContent>
         <TabsContent
           value="history"
           className="flex flex-col min-h-0 flex-1 overflow-y-auto"
         >
-          <SettingPanelHistory />
+          <HistoryPanel />
         </TabsContent>
       </Tabs>
     </div>

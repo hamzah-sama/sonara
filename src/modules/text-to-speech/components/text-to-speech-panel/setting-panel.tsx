@@ -3,12 +3,12 @@
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { sliders } from "@/constants";
 import { useTypedAppFormContext } from "@/hooks/use-app-form";
-import { ttsFormOptions } from "./text-to-speech-form";
 import { Slider } from "@/components/ui/slider";
 import { useStore } from "@tanstack/react-form";
-import { VoiceSelector } from "./voice-selector";
+import { ttsFormOptions } from "../text-to-speech-form";
+import { VoiceSelector } from "../voice-selector";
 
-export const SettingPanelSetting = () => {
+export const SettingPanel = () => {
   const form = useTypedAppFormContext(ttsFormOptions);
   const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
 

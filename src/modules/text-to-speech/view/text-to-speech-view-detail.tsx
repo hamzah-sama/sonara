@@ -1,7 +1,7 @@
 "use client";
 
 import { TextInputPanel } from "@/modules/text-to-speech/components/text-input-panel";
-import { SettingPanel } from "../components/setting-panel";
+import { SettingPanel } from "../components/text-to-speech-panel";
 import {
   TextToSpeechForm,
   type TTSFormValues,

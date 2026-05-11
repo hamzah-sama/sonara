@@ -1,15 +1,15 @@
 import { useTypedAppFormContext } from "@/hooks/use-app-form";
-import { ttsFormOptions } from "./text-to-speech-form";
 import { Textarea } from "@/components/ui/textarea";
-import { COST_PER_CHAR, MAX_TEXT_INPUT_LENGTH } from "@/constants";
+import { MAX_TEXT_INPUT_LENGTH } from "@/constants";
 import { useStore } from "@tanstack/react-form";
-import { Badge } from "@/components/ui/badge";
-import { Coins } from "lucide-react";
-import { PromptSuggestion } from "./prompt-suggestion";
-import { SettingDrawer } from "./setting-drawer";
-import { VoiceSelectorButton } from "./voice-selector-button";
-import { DrawerHistory } from "./drawer-history";
-import { GenerateButton } from "./button/generate-button";
+import { ttsFormOptions } from "../text-to-speech-form";
+import { VoiceSelectorButton } from "../voice-selector-button";
+import { GenerateButton } from "../button/generate-button";
+import { PromptSuggestion } from "../prompt-suggestion";
+import { FadeEffect } from "./fade-effect";
+import { TextInputStats } from "./text-input-stats";
+import { Drawersetting } from "../text-to-speech-panel/drawer-setting";
+import { DrawerHistory } from "../text-to-speech-panel/drawer-history";
 
 export const TextInputPanel = () => {
   const form = useTypedAppFormContext(ttsFormOptions);
@@ -31,15 +31,15 @@ export const TextInputPanel = () => {
             />
           )}
         </form.Field>
-        <div className="absolute inset-x-0 bottom-0 h-8 pointer-events-none bg-linear-to-t from-background to-transparent " />
+        <FadeEffect />
       </div>
       <div className="shrink-0 p-4 lg:p-6"></div>
 
       {/* Mobile view */}
       <div className="flex flex-col gap-3 lg:hidden">
-        <SettingDrawer>
+        <Drawersetting>
           <VoiceSelectorButton />
-        </SettingDrawer>
+        </Drawersetting>
         <DrawerHistory />
         <GenerateButton
           size="sm"
@@ -50,35 +50,15 @@ export const TextInputPanel = () => {
       </div>
 
       {/* Desktop view */}
-
       {text.length > 0 ? (
-        <div className="lg:flex hidden items-center justify-between">
-          <Badge variant="outline" className="border-dashed gap-1.5 p-2">
-            <Coins className="size-3 text-chart-5" />
-            {text.trim().length === 0 ? (
-              "Start typing to estimate"
-            ) : (
-              <span className="tabular-nums">
-                ${(text.length * COST_PER_CHAR).toFixed(4)} estimated
-              </span>
-            )}
-          </Badge>
-          <div className="flex items-center gap-3">
-            <p className="tracking-tight text-xs">
-              {text.length.toLocaleString("en-US")}
-              <span className="text-xs text-muted-foreground">
-                &nbsp;/&nbsp; {MAX_TEXT_INPUT_LENGTH.toLocaleString("en-US")}{" "}
-                characters
-              </span>
-            </p>
-            <GenerateButton
-              size="sm"
-              disabled={isSubmitting}
-              onClick={form.handleSubmit}
-              isSubmitting={isSubmitting}
-            />
-          </div>
-        </div>
+        <TextInputStats text={text}>
+          <GenerateButton
+            size="sm"
+            disabled={isSubmitting}
+            onClick={form.handleSubmit}
+            isSubmitting={isSubmitting}
+          />
+        </TextInputStats>
       ) : (
         <div className="hidden lg:block">
           <PromptSuggestion

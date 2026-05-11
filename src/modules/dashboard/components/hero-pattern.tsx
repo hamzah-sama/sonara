@@ -2,7 +2,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 
 export const HeroPattern = () => {
   return (
-    <div className="absolue inset-0 overflow-hidden hidden lg:block pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden hidden lg:block pointer-events-none">
       <WavyBackground
         colors={["#2DD4BF", "#22D3EE", "#38BDF8", "#818CF8"]}
         backgroundFill="hsl(0 0% 100%)"
