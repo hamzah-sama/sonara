@@ -14,7 +14,7 @@ export const TextInputStats = ({ text }: Props) => {
           "Start typing to estimate"
         ) : (
           <span className="tabular-nums">
-            ${(text.length * COST_PER_CHAR).toFixed(4)} estimated
+            ${(text.trim().length * COST_PER_CHAR).toFixed(4)} estimated
           </span>
         )}
       </Badge>
