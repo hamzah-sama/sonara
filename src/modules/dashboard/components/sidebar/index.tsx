@@ -14,19 +14,18 @@ import { UsageContainer } from "@/modules/billing/components/usage-container";
 import { useShowCreateVoiceForm } from "@/modules/text-to-speech/contexts/show-create-voice-context";
 import { VoiceCreateDialog } from "@/modules/voices/components/voice-create-dialog";
 import { usePathname } from "next/navigation";
-import { createMainMenuItems, createOtherMenuItems } from "./sidebar-item";
 import { SidebarLogo } from "./sidebar-logo";
 import { AuthOrg } from "../auth/auth-org";
 import { SidebarMenuGroup } from "./sidebar-menu-group";
 import { AuthButton } from "../auth/auth-button";
-import Link from "next/link";
+import { useMainMenuItems, useOtherMenuItems } from "./sidebar-item";
 
 export const DashboardSidebar = () => {
   const pathName = usePathname();
   const { setOpen } = useShowCreateVoiceForm();
 
-  const mainMenuItems = createMainMenuItems(setOpen);
-  const otherMenuItems = createOtherMenuItems();
+  const mainMenuItems = useMainMenuItems(setOpen);
+  const otherMenuItems = useOtherMenuItems();
   return (
     <>
       <VoiceCreateDialog />

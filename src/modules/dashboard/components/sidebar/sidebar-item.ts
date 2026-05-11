@@ -15,9 +15,10 @@ export interface MenuItem {
   icon: LucideIcon;
   url?: string;
   onClick?: () => void;
+  allowGuest?: boolean;
 }
 
-export const createMainMenuItems = (
+export const useMainMenuItems = (
   setOpen: (open: boolean) => void,
 ): MenuItem[] => {
   const { isSignedIn } = useUser();
@@ -41,7 +42,7 @@ export const createMainMenuItems = (
   ];
 };
 
-export const createOtherMenuItems = (): MenuItem[] => {
+export const useOtherMenuItems = (): MenuItem[] => {
   const { isSignedIn } = useUser();
   const clerk = useClerk();
   return [
@@ -60,6 +61,7 @@ export const createOtherMenuItems = (): MenuItem[] => {
     {
       title: "Help and Support",
       icon: Headphones,
+      allowGuest: true,
       url: "mailto:hamzah.sama@gmail.com",
     },
   ];

@@ -48,7 +48,7 @@ export const SidebarMenuGroup = ({ label, items, pathName }: Props) => {
                   <Link
                     href={item.url}
                     onClick={(e) => {
-                      if (!isSignedIn) {
+                      if (!isSignedIn && !item.allowGuest) {
                         clerk.openSignIn();
                         toast.error("Please sign in to execute this action");
                         e.preventDefault();

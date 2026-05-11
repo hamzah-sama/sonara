@@ -19,7 +19,7 @@ export const TextInputStats = ({ text }: Props) => {
         )}
       </Badge>
       <span className="text-xs text-muted-foreground">
-        {text.length.toLocaleString("en-US")} /{" "}
+        {text.trim().length.toLocaleString("en-US")} /{" "}
         {MAX_TEXT_INPUT_LENGTH.toLocaleString("en-US")} characters
       </span>
     </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { TextInputPanel } from "@/modules/text-to-speech/components/text-input-panel";
-import { SettingPanel } from "../components/text-to-speech-panel";
 import {
   TextToSpeechForm,
   type TTSFormValues,
@@ -12,6 +11,7 @@ import { useSuspenseQueries } from "@tanstack/react-query";
 import { AudioPlayerMobile } from "../components/audio-player-mobile";
 import { AudioPlayer } from "../components/audio-player";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { SettingPanel } from "../components/text-to-speech-panel/setting-panel";
 
 interface Props {
   generationId: string;

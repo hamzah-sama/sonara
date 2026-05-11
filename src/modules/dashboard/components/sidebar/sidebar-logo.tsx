@@ -6,14 +6,14 @@ export const SidebarLogo = () => {
       <Link href="/">
         <Image
           src="/logo-only.png"
-          alt="logo"
+          alt="Sonara logo"
           width={32}
           height={32}
           className="group-data-[collapsible=icon]:block hidden"
         />
         <Image
           src="/logo-text.png"
-          alt="logo"
+          alt="Sonara logo"
           width={72}
           height={72}
           className="group-data-[collapsible=icon]:hidden"
