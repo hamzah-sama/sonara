@@ -1,119 +1,134 @@
-# 📦 nextjs-clerk-prisma Starter Kit
+# Sonara
 
-Modern full-stack starter built with:
+AI-powered text-to-speech platform inspired by modern voice generation tools like ElevenLabs.
 
-- Next.js (App Router)
-- Shadcn UI
-- Clerk Authentication
-- Prisma ORM
-- PostgreSQL (Neon / any provider)
-- Type-safe environment variables
+Built with a modern full-stack TypeScript architecture using Next.js, tRPC, Prisma, PostgreSQL, and Chatterbox-based voice generation workflows.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔐 Authentication via Clerk
-- 🧠 Type-safe env config (`@t3-oss/env-nextjs`)
-- 🗄️ Prisma ORM with PostgreSQL support
-- 🎨 Shadcn UI + Tailwind CSS
-- 🌙 Dark mode ready (`next-themes`)
-- ⚡ Clean scalable project structure
-- 🔁 Easily switch database via `DATABASE_URL`
+- AI-powered text-to-speech generation
+- Voice generation workflow management
+- Audio upload and storage system
+- Secure authentication and user management
+- Subscription-ready SaaS architecture
+- Audio playback and waveform visualization
+- Responsive modern dashboard UI
+- Type-safe API architecture with tRPC + Zod
 
 ---
 
-## 🧱 Tech Stack
+## Tech Stack
 
-- Next.js 16
+### Frontend
 - React 19
-- Prisma 7
-- Clerk
-- Tailwind CSS 4
-- Shadcn UI
-- PostgreSQL (Neon / any provider)
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- TanStack Query
+- Wavesurfer.js
+
+### Backend
+- Node.js
+- tRPC
+- Prisma ORM
+- PostgreSQL
+
+### Infrastructure & Services
+- AWS S3
+- Clerk Authentication
+- Polar Billing
+- Chatterbox TTS
 
 ---
 
-## 🚀 Getting Started
+## Architecture Highlights
 
-### 1. Clone repository
+- End-to-end type safety with tRPC and Zod
+- Modular API architecture
+- Server/client separation using Next.js App Router
+- Audio processing and metadata workflows
+- Scalable cloud-based file storage using AWS S3
+- Production-style SaaS authentication and billing flows
+
+---
+
+## Getting Started
+
+### Clone the repository
 
 ```bash
-git clone https://github.com/your-repo/setup-nextjs-clerk-prisma.git
-cd setup-nextjs-clerk-prisma
+git clone https://github.com/hamzah-sama/sonara.git
+cd sonara
+```
 
+### Install dependencies
 
-2. Install dependencies
+```bash
 npm install
+```
+
+### Configure environment variables
+
+Create a `.env` file:
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
 
-3. Setup environment variables
+R2_ACCOUNT_ID=    
+R2_ACCESS_KEY_ID=
+R2_SECRET_ACCESS_KEY=
+R2_BUCKET_NAME=
 
-Create .env file:
-
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_key
-CLERK_SECRET_KEY=your_secret
-
-💡 You can use:
-
-Neon
-Supabase
-Prisma Postgres
+DATABASE_URL=
 
 
-4. Setup Prisma
-npx prisma generate
-npx prisma migrate dev
+HF_TOKEN=
+CHATTER_BOX_API_KEY=
+CHATTER_BOX_API_URL=
+CHATTERBOX_ALLOWED_ORIGINS=
 
 
-5. Run development server
+POLAR_ACCESS_TOKEN=
+POLAR_SERVER=
+POLAR_PRODUCT_ID=
+
+APP_URL=
+
+
+```
+
+### Run the development server
+
+```bash
 npm run dev
+```
 
+---
 
-🗄️ Database Setup
-This project uses Prisma ORM with PostgreSQL.
+## Project Goals
 
+Sonara was built to explore modern AI audio workflows, scalable SaaS architecture, and production-grade TypeScript development patterns.
 
-🔐 Authentication (Clerk)
-This project uses Clerk.
+The project focuses on:
+- AI product engineering
+- audio generation systems
+- scalable frontend architecture
+- type-safe APIs
+- modern developer experience
 
+---
 
-Make sure to:
-Create project on Clerk
-Copy keys to .env
-Configure allowed redirect URLs
-🧠 Environment Validation
+## Status
 
-We use @t3-oss/env-nextjs for type-safe environment handling.
+Actively developed and continuously improved.
 
-All environment variables are validated before the app starts.
+---
 
-🧩 Prisma Workflow
-Create migration (schema changes)
-npx prisma migrate dev --name your_change
-Generate client only
-npx prisma generate
-Reset database (dev only)
-npx prisma migrate reset
-🔁 Switching Database (Neon / others)
+## License
 
-Just update:
-
-DATABASE_URL="new_postgres_connection"
-
-No code changes required.
-
-
-
-⚠️ Notes
-Always run prisma generate after schema changes
-Never commit .env
-Use PostgreSQL for production
-
-
-💡 Philosophy
-This starter is designed to be:
-minimal, scalable, and database-agnostic (Postgres-based)
-
+MIT
